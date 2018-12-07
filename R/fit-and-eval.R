@@ -26,6 +26,11 @@ eval.basis <- function(basis.fit, x.grid) {
   as.numeric(X.grid %*% basis.fit$alpha)
 }
 
+#' Estimate the parameters for the basis functions
+#' 
+#' This function actually does all of the work, the \code{\link{clsif}} and 
+#' \code{\link{ulsif}} functions just call this with their respective learning
+#' functions.
 fit.dr <- function(x.de, x.nu, lambda, sigma.chosen,
                    is.adaptive = FALSE, neigh.rank,
                    kernel.low, kernel.high,
