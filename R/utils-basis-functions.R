@@ -41,33 +41,3 @@ lin.down <- function(x, t) {
 lin.up <- function(x, t) {
   pmax(as.numeric(x) - t, 0)
 }
-
-loglin.grad <- function(alpha, mean.X.nu, X.de) {
-  n.de <- nrow(X.de)
-  alpha <- as.numeric(alpha)
-  exp.de <- exp(X.de %*% alpha)
-  score <- sum(mean.X.nu * alpha) - log(mean(exp.de))
-  r.de <- exp.de / mean(exp.de) ## mean so that 1/n.de (sum_i r(x.de.i)) = 1
-  sum(r.de) / n.de
-  ## zeta is vector for each base fct in col i:
-  ## 1/n.de sum_samples_j base_i(de_j) * r.de.j
-  zeta <- t(r.de) %*% X.de / n.de
-  list(grad = as.numeric(mean.X.nu - zeta), score = score)
-}
-
-loglin.ratio <- function(alpha, X.grid, X.de) {
-  n.grid <- nrow(X.grid)
-  alpha <- as.numeric(alpha)
-  exp.grid <- exp(X.grid %*% alpha)
-  exp.de <- exp(X.de %*% alpha)
-  r.grid <- exp.grid / mean(exp.de) ## mean so that 1/n.de (sum_i r(x.de.i)) = 1
-  r.grid
-}
-
-reduce.base <- function(kl, cutoff = 1e-5) {
-  inds <- which(abs(kl$alpha) > cutoff)
-  kl$alpha <- kl$alpha[inds]
-  kl$c.dists <- kl$c.dists[inds]
-  kl$x.ce <- kl$x.ce[, inds]
-  kl
-}
