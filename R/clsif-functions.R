@@ -70,7 +70,7 @@ clsif.learning <- function(X.de, X.nu, lambda, max.iteration = 100,
 #'   \item{c.dists}{vector of distances between centers, used if is.adaptive 
 #'     is true}
 #' }
-#' Note that this is list is meant to be passed to \code{\link{fit.dr}}. It
+#' Note that this is list is meant to be passed to \code{\link{eval.basis}}. It
 #' also serves as a small way to represent the estimated density ratio.
 #' @export
 clsif <- function(x.de, x.nu, lambda, sigma.chosen = 0.2, is.adaptive = FALSE,
